@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Registros de Clubes</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+
+    const supabaseUrl = 'https://dreylugwiafdpbtysmes.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRyZXlsdWd3aWFmZHBidHlzbWVzIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0NjE2MzY1NywiZXhwIjoyMDYxNzM5NjU3fQ.jyiXK95iveKrjbGmrG_ZBM8owJ-AA5QZ4k9arAemg9w';
+    const supabase = createClient(supabaseUrl, supabaseKey);
+
+    let todosLosDatos = [];
+
+    async function cargarDatos() {
+      const { data, error } = await supabase
+        .from('datosclub')
+        .select('*');
+
+      if (error) {
+        console.error('Error al cargar datos:', error);
+        return;
+      }
+
+      todosLosDatos = data;
+      mostrarTabla(data);
+      cargarFiltros(data);
+    }
+
+    function mostrarTabla(registros) {
+      const cuerpo = document.getElementById('tablaCuerpo');
+      cuerpo.innerHTML = '';
+
+      registros.forEach(reg => {
+        const fila = `
+          <tr class="border-b border-gray-700 hover:bg-gray-800">
+            <td class="px-4 py-2">${reg.nombre}</td>
+            <td class="px-4 py-2">${reg.apellidos}</td>
+            <td class="px-4 py-2">${reg.experiencia}</td>
+            <td class="px-4 py-2">${reg.curp}</td>
+            <td class="px-4 py-2">${reg.club}</td>
+          </tr>`;
+        cuerpo.innerHTML += fila;
+      });
+    }
+
+    function cargarFiltros(data) {
+      const filtroClub = document.getElementById('filtroClub');
+      const clubsUnicos = [...new Set(data.map(d => d.club))];
+
+      filtroClub.innerHTML = `<option value="">Filtrar por club</option>`;
+      clubsUnicos.forEach(club => {
+        filtroClub.innerHTML += `<option value="${club}">${club}</option>`;
+      });
+    }
+
+    function filtrar() {
+      const texto = document.getElementById('busqueda').value.toLowerCase();
+      const experiencia = document.getElementById('filtroExperiencia').value;
+      const club = document.getElementById('filtroClub').value;
+
+      const filtrados = todosLosDatos.filter(reg => {
+        const coincideTexto =
+          reg.nombre.toLowerCase().includes(texto) ||
+          reg.apellidos.toLowerCase().includes(texto) ||
+          reg.curp.toLowerCase().includes(texto) ||
+          reg.club.toLowerCase().includes(texto);
+
+        const coincideExperiencia = experiencia === '' || reg.experiencia === experiencia;
+        const coincideClub = club === '' || reg.club === club;
+
+        return coincideTexto && coincideExperiencia && coincideClub;
+      });
+
+      mostrarTabla(filtrados);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      cargarDatos();
+      document.getElementById('busqueda').addEventListener('input', filtrar);
+      document.getElementById('filtroExperiencia').addEventListener('change', filtrar);
+      document.getElementById('filtroClub').addEventListener('change', filtrar);
+    });
+  </script>
+</head>
+<body class="bg-gray-900 text-white font-sans min-h-screen">
+  <header class="bg-purple-600 p-6 text-center shadow-lg">
+    <h1 class="text-4xl font-bold text-white">Registros de Clubes</h1>
+  </header>
+
+  <main class="max-w-7xl mx-auto p-6">
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+      <input id="busqueda" type="text" placeholder="🔍 Buscar..." class="w-full md:w-1/3 px-4 py-2 rounded-lg bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-400" />
+      
+      <select id="filtroExperiencia" class="px-4 py-2 rounded-lg bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-400">
+        <option value="">Filtrar por experiencia</option>
+        <option value="Principiante">Principiante</option>
+        <option value="Intermedio">Intermedio</option>
+        <option value="Avanzado">Avanzado</option>
+      </select>
+
+      <select id="filtroClub" class="px-4 py-2 rounded-lg bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-400">
+        <option value="">Filtrar por club</option>
+        
+      </select>
+    </div>
+
+    <div class="overflow-x-auto rounded-lg shadow-lg">
+      <table class="min-w-full bg-gray-800 text-white border border-gray-700">
+        <thead>
+          <tr class="bg-gray-700 text-purple-300">
+            <th class="px-4 py-2 text-left">Nombre</th>
+            <th class="px-4 py-2 text-left">Apellidos</th>
+            <th class="px-4 py-2 text-left">Experiencia</th>
+            <th class="px-4 py-2 text-left">CURP</th>
+            <th class="px-4 py-2 text-left">Grado</th> 
+            <th class="px-4 py-2 text-left">Grupo</th> 
+            <th class="px-4 py-2 text-left">Club</th>
+          </tr>
+        </thead>
+        
+        <tbody id="tablaCuerpo"></tbody>
+      </table>
+    </div>
+  </main>
+  <div class="text-center my-10">
+    <a href="index.html" class="inline-block bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-6 rounded-full shadow-lg transition duration-300">
+      ← Regresar al inicio
+    </a>
+  </div>
+  
+  <footer class="bg-gray-800 text-center py-4 text-sm text-gray-400">
+    © 2025 Clubes Escolares — Todos los derechos reservados.
+  </footer>
+</body>
+</html>

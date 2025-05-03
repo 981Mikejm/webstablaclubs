@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Invernadero</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+
+    const supabaseUrl = 'https://dreylugwiafdpbtysmes.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRyZXlsdWd3aWFmZHBidHlzbWVzIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0NjE2MzY1NywiZXhwIjoyMDYxNzM5NjU3fQ.jyiXK95iveKrjbGmrG_ZBM8owJ-AA5QZ4k9arAemg9w';
+    const supabase = createClient(supabaseUrl, supabaseKey);
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('registroForm');
+      const loadingMessage = document.getElementById('loadingMessage');
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        loadingMessage.classList.remove('hidden');
+
+        const nombre = document.getElementById('nombre').value.trim();
+const apellidos = document.getElementById('apellidos').value.trim();
+const experiencia = document.getElementById('experiencia').value.trim();
+const curp = document.getElementById('curp').value.trim();
+const grado = document.getElementById('grado').value.trim();
+const grupo = document.getElementById('grupo').value.trim();
+const club = 'invernadero';
+
+if (!nombre || !apellidos || !experiencia || !curp || !grado || !grupo) {
+  alert('Por favor, completa todos los campos.');
+  return;
+}
+
+
+        try {
+          const { data, error } = await supabase
+            .from('datosclub')
+            .insert([{ nombre, apellidos, experiencia, club, curp }]);
+
+          if (error) {
+            console.error('Error detallado:', error);
+            alert('Error al registrar: ' + error.message);
+          } else {
+            alert('Registro exitoso');
+            form.reset();
+          }
+        } catch (err) {
+          console.error('Error en la solicitud:', err);
+          alert('Error al registrar: ' + err.message);
+        } finally {
+          loadingMessage.classList.add('hidden');
+        }
+      });
+    });
+  </script>
+</head>
+<body class="bg-green-600 text-white font-sans">
+  <header class="bg-green-800 shadow-lg">
+    <div class="max-w-6xl mx-auto px-6 py-6 text-center">
+      <h1 class="text-4xl font-bold text-white">Invernadero</h1>
+    </div>
+  </header>
+
+  <section class="max-w-6xl mx-auto px-6 py-16">
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      <div>
+        <h2 class="text-3xl font-extrabold text-yellow-300 mb-4">Cuidamos tus cultivos</h2>
+        <p class="text-gray-300 mb-6">
+          Únete a nuestro invernadero y aprende a cultivar productos frescos y orgánicos en un ambiente controlado. Juntos cuidamos la naturaleza.
+        </p>
+        <ul class="list-disc list-inside text-gray-400">
+          <li>Cultivo de productos orgánicos</li>
+          <li>Ambiente controlado para el mejor crecimiento</li>
+          <li>Trabajo en equipo y aprendizaje constante</li>
+          <li>Acceso a técnicas avanzadas de agricultura</li>
+        </ul>
+      </div>
+      <div class="relative">
+        <img src="img/invernaderos.png" alt="Invernadero" class="rounded-2xl shadow-xl w-full h-auto object-cover" />
+        <div class="absolute bottom-4 right-4 bg-yellow-300 text-black px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
+          ¡Únete al Invernadero!
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-gray-800 py-16">
+    <div class="max-w-xl mx-auto px-6">
+      <h2 class="text-3xl font-bold text-yellow-300 text-center mb-8">Regístrate al Invernadero</h2>
+
+      <div id="loadingMessage" class="hidden text-yellow-300 text-center font-semibold mb-4">
+        ⏳ Espera, enviando respuestas...
+      </div>
+
+      <form id="registroForm" class="space-y-6 bg-gray-900 p-6 rounded-2xl shadow-lg">
+        <div>
+          <label for="nombre" class="block text-sm font-semibold mb-1 text-gray-300">Nombre</label>
+          <input id="nombre" type="text" class="w-full px-4 py-2 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-yellow-300" required>
+        </div>
+        <div>
+          <label for="apellidos" class="block text-sm font-semibold mb-1 text-gray-300">Apellidos</label>
+          <input id="apellidos" type="text" class="w-full px-4 py-2 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-yellow-300" required>
+        </div>
+        <div>
+          <label for="experiencia" class="block text-sm font-semibold mb-1 text-gray-300">Experiencia en Invernadero</label>
+          <select id="experiencia" class="w-full px-4 py-2 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-yellow-300">
+            <option>Principiante</option>
+            <option>Intermedio</option>
+            <option>Avanzado</option>
+          </select>
+        </div>
+        <div>
+          <label for="curp" class="block text-sm font-semibold mb-1 text-gray-300">CURP</label>
+          <input id="curp" type="text" class="w-full px-4 py-2 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-yellow-300" required>
+        </div>
+        <button type="submit" class="w-full bg-yellow-300 text-black font-semibold py-2 rounded-lg hover:bg-yellow-200 transition duration-200">
+          Enviar registro
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <button onclick="window.location.href='index.html'" class="btn-regresar">Regresar al Inicio</button>
+
+  <style>
+    .btn-regresar {
+      padding: 12px 30px;
+      background-color: #ff6600;
+      color: white;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    .btn-regresar:hover {
+      background-color: #e65c00;
+      transform: scale(1.05);
+    }
+    .btn-regresar:active {
+      transform: scale(1);
+    }
+  </style>
+
+  <footer class="bg-gray-800 py-6 text-center text-sm text-gray-400">
+    © 2025 Invernadero — Todos los derechos reservados.
+  </footer>
+</body>
+</html>

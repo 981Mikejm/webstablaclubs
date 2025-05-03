@@ -1,0 +1,76 @@
+body {
+    background: #0a0a0a;
+    color: #00ffcc;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+header {
+    padding: 2rem;
+}
+
+button {
+    background: #00ffcc;
+    color: #000;
+    border: none;
+    padding: 1rem 2rem;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #009e99;
+    transition: background 0.3s ease;
+}
+
+.carrusel {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    margin: 20px 0;
+}
+
+.carrusel .slides {
+    display: flex;
+    transition: transform 1s ease-in-out;
+}
+
+.carrusel .slides img {
+    width: 300px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin: 0 10px;
+    transition: transform 0.3s ease, z-index 0s ease 0.3s;
+}
+
+.carrusel .slides img:hover {
+    transform: scale(1.1);
+    z-index: 1;
+}
+
+.carrusel button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 255, 204, 0.8);
+    border-radius: 50%;
+    padding: 10px;
+    font-size: 1.5rem;
+    color: #000;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.carrusel .prev {
+    left: 10px;
+}
+
+.carrusel .next {
+    right: 10px;
+}
+
+.carrusel button:hover {
+    background-color: rgba(0, 255, 204, 1);
+}
+

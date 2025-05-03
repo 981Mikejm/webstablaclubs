@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CBTISSCJ - Inicio</title>
+  <link rel="stylesheet" href="estilos.css">
+  <script src="script.js" defer></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f0f0;
+    }
+
+    header {
+      background-color: #004d99;
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.5em;
+    }
+
+    header p {
+      margin: 0;
+      font-size: 1.2em;
+    }
+
+    nav {
+      background-color: #003366;
+      padding: 10px 0;
+      text-align: center;
+    }
+
+    nav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+      font-size: 1.1em;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    .carrusel {
+      position: relative;
+      overflow: hidden;
+      margin: 20px auto;
+      width: 90%;
+      max-width: 1000px;
+    }
+
+    .slides {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .slides a {
+      display: block;
+      width: 100%;
+    }
+
+    .slides img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
+
+    .prev, .next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.5);
+      color: white;
+      font-size: 1.5em;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    .prev {
+      left: 10px;
+    }
+
+    .next {
+      right: 10px;
+    }
+
+    footer {
+      background-color: #003366;
+      color: white;
+      padding: 10px;
+      text-align: center;
+      font-size: 1em;
+    }
+
+    footer p {
+      margin: 0;
+    }
+
+    .section-content {
+      padding: 40px;
+      background-color: #e8f4f8;
+      text-align: justify;
+    }
+
+    .section-content h2 {
+      font-size: 2.5em;
+      color: #004d99;
+      margin-bottom: 20px;
+    }
+
+    .section-content p {
+      font-size: 1.2em;
+      line-height: 1.6;
+      color: #333;
+    }
+
+    .section-content img {
+      width: 80%;
+      margin-top: 20px;
+      border-radius: 10px;
+    }
+
+    .section-content a {
+      color: #004d99;
+      text-decoration: none;
+      font-size: 1.2em;
+    }
+
+    .section-content a:hover {
+      text-decoration: underline;
+    }
+
+    .menu {
+      display: flex;
+      justify-content: space-around;
+      background-color: #003366;
+      padding: 10px;
+    }
+
+    .menu a {
+      color: white;
+      text-decoration: none;
+      font-size: 1.1em;
+      margin: 0 20px;
+    }
+
+    .menu a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>CBT Ing Salvador Sánchez Colín</h1>
+    <p>Bienvenido a nuestra institución</p>
+  </header>
+
+  <nav>
+    <a href="login.html">Iniciar sesión</a>
+  </nav>
+
+  <section class="carrusel">
+    <div class="slides">
+      <a href="fut.html"><img src="img/fut.png" alt="Club 1"></a>
+      <a href="basket.html"><img src="img/basket.png" alt="Club 2"></a>
+      <a href="ajedrez.html"><img src="img/Club de ajedrez.png" alt="Club 3"></a>
+      <a href="oratoria.html"><img src="img/oratoria.png" alt="Club 4"></a>
+      <a href="atletismo.html"><img src="img/Club de ATLETISMO.png" alt="Club 5"></a>
+      <a href="canto.html"><img src="img/Club de canto.png" alt="Club 6"></a>
+      <a href="foto.html"><img src="img/fotografia.png" alt="Club 7"></a>
+      <a href="invernaderos.html"><img src="img/invernaderos.png" alt="Club 8"></a>
+      <a href="voly.html"><img src="img/voly.png" alt="Club 9"></a>
+    </div>
+    <button class="prev">Atras</button>
+    <button class="next">Siguiente</button>
+  </section>
+
+  <section class="section-content">
+    <h2>¿Quiénes somos?</h2>
+    <p>El CBT Ing Salvador Sánchez Colín es una institución educativa ubicada en Jilotepec, Estado de México. Ofrecemos educación técnica de calidad, en carreras como Técnico en Informática y Técnico en Diseño. Estamos comprometidos con el desarrollo de nuestros estudiantes, brindándoles las herramientas necesarias para enfrentarse al mundo laboral y a continuar su formación académica. Con nosotros, obtienes un aprendizaje completo y práctico.</p>
+  </section>
+
+  <section class="section-content">
+    <h2>Nuestras Carreras</h2>
+    <p>Contamos con dos especialidades técnicas que te permitirán sobresalir en el mundo laboral:</p>
+    <p><strong>Técnico en Informática:</strong> Esta carrera te prepara para desarrollarte en el mundo de la tecnología, con un enfoque en programación, redes y seguridad informática.</p>
+    <p><strong>Técnico en Diseño:</strong> Si te apasiona el diseño y la creatividad, esta carrera te brindará los conocimientos necesarios en diseño gráfico, multimedia y diseño asistido por computadora.</p>
+  </section>
+
+  <footer>
+    <p>© CBT Ing Salvador Sánchez Colín - Todos los derechos reservados</p>
+  </footer>
+
+  <script>
+    let slideIndex = 0;
+    const slides = document.querySelector('.slides');
+    const totalSlides = document.querySelectorAll('.slides a').length;
+
+    document.querySelector('.next').addEventListener('click', () => {
+      slideIndex = (slideIndex + 1) % totalSlides;
+      updateSlidePosition();
+    });
+
+    document.querySelector('.prev').addEventListener('click', () => {
+      slideIndex = (slideIndex - 1 + totalSlides) % totalSlides;
+      updateSlidePosition();
+    });
+
+    function updateSlidePosition() {
+      const offset = -slideIndex * 100;
+      slides.style.transform = `translateX(${offset}%)`;
+    }
+  </script>
+</body>
+</html>
+html>
+
